@@ -1,6 +1,6 @@
 {
   "version": 2,
   "builds": [
-    { "src": "**/functions/*/*.js", "use": "@now/node" }
+    { "src": "**/apis/*/index.js", "use": "@now/node" }
   ]
 }

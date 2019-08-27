@@ -2,10 +2,11 @@
 
 var bodyParser = require('body-parser')
 const jwt = require('./jwt')
+const utils = require('./utils');
+
 module.exports = [
     bodyParser.urlencoded({ extended: true }),
     bodyParser.json(),
-
     //autentication
     ...(jwt.middlewares),
   /*
@@ -13,4 +14,5 @@ module.exports = [
     cookieParser(),
     ...
 */
+    utils.errorHandler
 ]
