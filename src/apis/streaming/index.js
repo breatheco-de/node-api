@@ -146,8 +146,8 @@ app.delete('/playlists/:videos', function (req, res) {
     }
 });
 
-if(process.argv.includes("-test")){
+if(process.argv.includes("-local")){
     console.log("Listen");
-    app.listen(3000, () => console.log(`Example app listening on port 3000!`))
+    app.app.listen(3000, () => console.log(`Example app listening on port 3000!`))
 }
-module.exports = app.app
+module.exports = app.app;
