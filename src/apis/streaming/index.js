@@ -1,4 +1,4 @@
-const app = require('../../app');
+const app = require('../../app')('streaming');
 const jwt = require('../../common/jwt');
 const utils = require('../../common/utils');
 
@@ -7,7 +7,6 @@ const path = require("path");
 const request = require('request');
 
 const { STREAMING_HOST, STREAMING_KEY, STREAMING_CODE } = process.env;
-
 //include readme file
 app.get('/', utils.renderReadme(path.resolve(__dirname,"./README.md")));
 
@@ -147,5 +146,8 @@ app.delete('/playlists/:videos', function (req, res) {
     }
 });
 
-if(process.argv.includes("-test")) app.listen(3000, () => console.log(`Example app listening on port 3000!`))
-module.exports = app
+if(process.argv.includes("-test")){
+    console.log("Listen");
+    app.listen(3000, () => console.log(`Example app listening on port 3000!`))
+}
+module.exports = app.app

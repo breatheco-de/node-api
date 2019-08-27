@@ -2,5 +2,9 @@
   "version": 2,
   "builds": [
     { "src": "**/apis/*/index.js", "use": "@now/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)\\?(.*)", "dest": "/src/apis/$1/index.js?$2" },
+    { "src": "/(.*)", "dest": "/src/apis/$1" }
   ]
 }
