@@ -2,7 +2,8 @@
   "alias": "api-node.breatheco.de",
   "version": 2,
   "builds": [
-    { "src": "**/apis/*/index.js", "use": "@now/node" }
+    { "src": "**/apis/*/index.js", "use": "@now/node" },
+    { "src": "**/apis/*/hooks/*.js", "use": "@now/node" }
   ],
   "routes": [
       { "src": "/(.*)/hook/(.*)", "dest": "/src/apis/$1/hooks/$2.js" },

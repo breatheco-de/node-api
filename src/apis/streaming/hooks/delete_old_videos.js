@@ -1,5 +1,6 @@
 const app = require('../../../app')('streaming/hook');
 const GET = require('../utils').GET;
+
 app.get('*', async function (req, resp) {
     const data = await GET("svp_list_video_playlists");
     const playlists = data.response.video_playlists[0].video_playlist;
