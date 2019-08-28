@@ -1,8 +1,8 @@
 const app = require('../../app')('streaming');
 const utils = require('../../common/utils');
 const path = require("path");
+const GET = require('./utils').GET;
 
-const { STREAMING_HOST, STREAMING_KEY, STREAMING_CODE } = process.env;
 //include readme file
 app.get('/', utils.renderReadme(path.resolve(__dirname,"./README.md")));
 
