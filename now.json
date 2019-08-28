@@ -1,4 +1,5 @@
 {
+  "alias": "api-node.breatheco.de",
   "version": 2,
   "builds": [
     { "src": "**/apis/*/index.js", "use": "@now/node" }
