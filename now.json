@@ -4,6 +4,7 @@
     { "src": "**/apis/*/index.js", "use": "@now/node" }
   ],
   "routes": [
+      { "src": "/(.*)/hook/(.*)", "dest": "/src/apis/$1/hooks/$2.js" },
       { "src": "/(.*)/(.*)/(.*)", "dest": "/src/apis/$1/index.js" },
       { "src": "/(.*)/(.*)", "dest": "/src/apis/$1/index.js" },
       { "src": "/(.*)", "dest": "/src/apis/$1/index.js" }
