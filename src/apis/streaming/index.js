@@ -70,28 +70,6 @@ app.get('/playlists/:channel_ref', function (req, res) {
             let d2 = new Date();
             let total = d2.getTime() - d1.getTime();
             let days_created = Math.floor(total / created);
-            let days = (req.query.days ? parseInt(req.query.days) : 1)
-            //return (parseInt(days_created) >= parseInt(days));
-            if(parseInt(days_created) >= parseInt(days)) return video;
-        });
-
-        result.response.todelete = videos;
-        result.response.days = (req.query.days ? req.query.days : 1);
-        res.send(result);
-    })
-    .catch(err => console.log(err));
-});
-
-app.get('/playlists/:channel_ref', function (req, res) {
-    GET("svp_list_videos&channel_ref=" + req.params.channel_ref)
-    .then(result => {
-        let videos = result.response.video_list[0].video.filter((video) => {
-            console.log(video);
-            let created = 1000 * 60 * 60 * 24;
-            let d1 = new Date(video.date_created * 1000);
-            let d2 = new Date();
-            let total = d2.getTime() - d1.getTime();
-            let days_created = Math.floor(total / created);
             let days = (req.query.days_old ? parseInt(req.query.days_old) : 1)
             //return (parseInt(days_created) >= parseInt(days));
             if(parseInt(days_created) >= parseInt(days)) return video;

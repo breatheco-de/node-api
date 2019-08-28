@@ -4,7 +4,13 @@
     { "src": "**/apis/*/index.js", "use": "@now/node" }
   ],
   "routes": [
-    { "src": "/(.*)\\?(.*)", "dest": "/src/apis/$1/index.js?$2" },
-    { "src": "/(.*)", "dest": "/src/apis/$1" }
-  ]
+      { "src": "/(.*)/(.*)/(.*)", "dest": "/src/apis/$1/index.js" },
+      { "src": "/(.*)/(.*)", "dest": "/src/apis/$1/index.js" },
+      { "src": "/(.*)", "dest": "/src/apis/$1/index.js" }
+  ],
+  "env": {
+    "STREAMING_HOST": "@streaming_host",
+    "STREAMING_KEY": "@streaming_key",
+    "STREAMING_CODE": "@streaming_code"
+  }
 }
