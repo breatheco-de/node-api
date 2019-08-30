@@ -17,7 +17,7 @@ app.get('*', async function (req, resp) {
                 let days_created = Math.floor(total / created);
                 let days = (req.query.days_old ? parseInt(req.query.days_old) : 90)
                 //return (parseInt(days_created) >= parseInt(days));
-                if(parseInt(days_created) >= parseInt(days) && video.video_source == "ondemand"){
+                if((parseInt(days_created) >= parseInt(days)) && (video.video_source == "ondemand")){
                     console.log(`Should delete from ${p.title} because it has ${days_created} days old ${video.clip_key}`);
                     deletedVideos.push({ cohort: p.title, days_old: days_created, ref_no: video.ref_no });
                     const result = await GET("svp_delete_video&video_ref=" + video.ref_no);
