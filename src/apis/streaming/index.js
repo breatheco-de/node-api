@@ -22,7 +22,7 @@ app.get('/playlists/:channel_ref', function (req, res) {
             let days_created = Math.floor(total / created);
             let days = (req.query.days_old ? parseInt(req.query.days_old) : 1)
             //return (parseInt(days_created) >= parseInt(days));
-            if(parseInt(days_created) >= parseInt(days)) return video;
+            if(parseInt(days_created) >= parseInt(days) && video.video_source == "ondemand") return video;
         });
         result = {};
         result.todelete = videos;
