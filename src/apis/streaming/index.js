@@ -13,20 +13,20 @@ app.get('/playlists', function (req, res) {
 app.get('/playlists/:channel_ref', function (req, res) {
     GET("svp_list_videos&channel_ref=" + req.params.channel_ref)
     .then(result => {
-        let videos = result.response.video_list[0].video.filter((video) => {
-            console.log(video);
+        let min_days = parseInt(req.query.days_old ? parseInt(req.query.days_old) : 1);
+        let videos = result.response.video_list[0].video.map(v => {
             let created = 1000 * 60 * 60 * 24;
             let d1 = new Date(video.date_created * 1000);
             let d2 = new Date();
             let total = d2.getTime() - d1.getTime();
             let days_created = Math.floor(total / created);
-            let days = (req.query.days_old ? parseInt(req.query.days_old) : 1)
-            //return (parseInt(days_created) >= parseInt(days));
-            if(parseInt(days_created) >= parseInt(days) && video.video_source == "ondemand") return video;
+            v.days_created = days_created;
+            return v;
         });
         result = {};
-        result.todelete = videos;
-        result.days = (req.query.days_old ? req.query.days_old : 1);
+        result.days = min_days;
+        result.todelete = videos.filter((video) => (parseInt(video.days_created) >= min_days && video.video_source == "ondemand"));
+        result.not_delete = videos.filter((video) => (parseInt(video.days_created) < min_days || video.video_source != "ondemand"));
         res.send(result);
     })
     .catch(err => console.log(err));
