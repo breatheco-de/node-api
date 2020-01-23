@@ -16,7 +16,7 @@ app.get('/playlists/:channel_ref', function (req, res) {
         let min_days = parseInt(req.query.days_old ? parseInt(req.query.days_old) : 1);
         let videos = result.response.video_list[0].video.map(v => {
             let created = 1000 * 60 * 60 * 24;
-            let d1 = new Date(video.date_created * 1000);
+            let d1 = new Date(v.date_created * 1000);
             let d2 = new Date();
             let total = d2.getTime() - d1.getTime();
             let days_created = Math.floor(total / created);
