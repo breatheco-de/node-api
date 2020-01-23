@@ -5,6 +5,7 @@ app.get('*', async function (req, resp) {
     const data = await GET("svp_list_video_playlists");
     const playlists = data.response.video_playlists[0].video_playlist;
     let deletedVideos = [];
+    let report = [];
     playlists.forEach(async p => {
         const data = await GET("svp_list_videos&channel_ref=" + p.ref_no);
         if(data.response.video_list){
@@ -21,11 +22,17 @@ app.get('*', async function (req, resp) {
                     console.log(`Should delete from ${p.title} because it has ${days_created} days old ${video.clip_key}`);
                     deletedVideos.push({ cohort: p.title, days_old: days_created, ref_no: video.ref_no });
                     const result = await GET("svp_delete_video&video_ref=" + video.ref_no);
+                    report.push({ title: video.ref_no, deleted: true });
+                }
+                else{
+                    report.push({ title: video.ref_no, deleted: false });   
                 }
             });
         }
     });
     resp.send(`
+        <p>Playlists Scanned: ${playlists.length}</p>
+        <p>Videos not deleted: ${report.filter(v => !v.deleted).length}</p>
         <p>Videos deleted: ${deletedVideos.length}</p>
         <ul>
             ${deletedVideos.map(v => `<li>Cohort: ${v.cohort}, days_old: ${v.days_old}, ref: ${v.ref_no}</li>`)}
